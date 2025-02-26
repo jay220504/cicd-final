@@ -3,7 +3,7 @@ name: Auto-Merge Dev to Main
 on:
   push:
     branches:
-      - dev
+      - test
   workflow_dispatch:
 
 jobs:
