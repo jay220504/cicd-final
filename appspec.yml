@@ -1,8 +1,9 @@
 version: 0.0
 os: linux
 files:
-  - source: scripts/start.sh
-    destination: /home/ec2-user/scripts
+  - source: .
+    destination: /home/ec2-user/app
+
 hooks:
   ApplicationStart:
     - location: scripts/start.sh
