@@ -1,0 +1,38 @@
+version: 0.2
+
+env:
+  parameter-store:
+    GITHUB_TOKEN: "/codebuild/github-token"
+
+phases:
+  install:
+    commands:
+      - echo "Updating system and installing Git..."
+      - yum update -y
+      - yum install -y git
+
+  pre_build:
+    commands:
+      - echo "Configuring Git..."
+      - git config --global user.email "github-actions@github.com"
+      - git config --global user.name "GitHub Actions"
+      - echo "Setting remote URL with GitHub token..."
+      - git remote set-url origin https://oauth2:${GITHUB_TOKEN}@github.com/aangibrahmakshatriya/cicd-pipeline-.git
+      - echo "Fetching latest from origin..."
+      - git fetch origin
+
+  build:
+    commands:
+      - echo "Checking out dev branch..."
+      - git checkout dev
+      - git pull origin dev
+      - echo "Switching to main branch..."
+      - git checkout main
+      - git pull origin main
+      - echo "Merging dev into main..."
+      - git merge origin/dev --strategy-option=theirs --no-edit || { echo "Merge failed. Please resolve conflicts manually."; exit 1; }
+      - echo "Pushing merged changes to main..."
+      - git push origin main
+
+artifacts:
+  files: []

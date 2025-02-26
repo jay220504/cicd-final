@@ -1,0 +1,30 @@
+name: Auto-Merge Dev to Main
+
+on:
+  push:
+    branches:
+      - dev
+  workflow_dispatch:
+
+jobs:
+  merge-to-main:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GH_PAT }}
+
+      - name: Configure Git
+        run: |
+          git config --global user.email "aangibrahmakshatriya@gmail.com"
+          git config --global user.name "GitHub Actions Bot"
+
+      - name: Merge Dev into Main
+        run: |
+          git checkout main
+          git pull origin main
+          git merge origin/dev --no-edit
+          git push origin main
