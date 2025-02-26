@@ -3,6 +3,10 @@ os: linux
 files:
   - source: scripts/start.sh
     destination: /home/ec2-user/scripts
+permissions:
+  - object: /home/ec2-user/scripts/start.sh
+    owner: ec2-user
+    mode: 755
 hooks:
   ApplicationStart:
     - location: scripts/start.sh
