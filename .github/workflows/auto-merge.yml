@@ -25,9 +25,14 @@ jobs:
       - name: Fetch all branches
         run: git fetch --all
 
+      - name: Ensure test branch is up-to-date
+        run: |
+          git checkout test
+          git pull origin test
+
       - name: Merge Test into Main
         run: |
           git checkout main
           git pull origin main
-          git merge origin/test --no-edit || git merge --abort
+          git merge test --no-edit || { echo "Merge conflict detected. Aborting merge."; git merge --abort; exit 1; }
           git push origin main
