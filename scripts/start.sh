@@ -1,3 +1,5 @@
-#!/bin/bash
+
 cd /home/ec2-user/app
-nohup node server.js > server.log 2>&1 &
+npm install
+pm2 stop all || true
+pm2 start server.js
