@@ -26,5 +26,5 @@ jobs:
         run: |
           git checkout main
           git pull origin main
-          git merge origin/dev --no-edit
+          git merge origin/test --no-edit
           git push origin main
