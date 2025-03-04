@@ -34,8 +34,14 @@ jobs:
         run: |
           git checkout main
           git pull origin main
-          git merge test --no-edit || { echo "Merge conflict detected. Aborting merge."; git merge --abort; exit 1; }
-
-          git merge origin/test --no-edit
-
+          
+          # Try merging test into main
+          if git merge test --no-edit; then
+            echo "Merge successful."
+          else
+            echo "Merge conflict detected. Resolving automatically..."
+            git merge --abort  # Abort the failed merge
+            git merge -X theirs test --no-edit  # Automatically prefer 'test' branch changes
+          fi
+          
           git push origin main
