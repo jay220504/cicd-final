@@ -3,12 +3,11 @@ const app = express();
 
 app.get('/', (req, res) => {
 
-  res.send('Hello from CI/CD Pipeline! 🚀 Updated for jay22.');
+  res.send('Hello from CI/CD Pipeline! 🚀 Updated for testing jay solanki 2205');
 
   
 
-
-  res.send('Hello from CI/CD Pipeline! 🚀 Updated for testing jay solanki 0422....');
+  
 
 });
 
